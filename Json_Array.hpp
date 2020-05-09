@@ -10,6 +10,10 @@ public:
     Json_Array(std::string key,int id);
     void print();
 
+private:
+
+    std::string key;
+
 };
 
 #endif

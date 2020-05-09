@@ -2,7 +2,4 @@
 
 using namespace std;
 
-Json_Data::Json_Data(string key) {
-
-    this->key=key;
-}
+Json_Data::Json_Data() {}

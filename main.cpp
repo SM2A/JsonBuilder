@@ -21,7 +21,6 @@ int main(){
     jsonBuilder.addStringToObject(infoId, "email", "hsazarmsa@gmail.com");
     jsonBuilder.print(0);
 
-
 }
 
 /*

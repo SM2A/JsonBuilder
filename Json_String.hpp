@@ -14,6 +14,7 @@ public:
 private:
 
     std::string value;
+    std::string key;
 
 };
 

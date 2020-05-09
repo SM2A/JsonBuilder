@@ -7,12 +7,8 @@ class Json_Data {
 
 public:
 
-    Json_Data(std::string key);
+    Json_Data();
     virtual void print() = 0;
-
-protected:
-
-    std::string key;
 
 };
 

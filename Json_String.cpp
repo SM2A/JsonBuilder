@@ -3,9 +3,10 @@
 
 using namespace std;
 
-Json_String::Json_String(string key, string value) : Json_Data::Json_Data(key){
+Json_String::Json_String(string key, string value){
 
     this->value=value;
+    this->key=key;
 }
 
 void Json_String::print() {

@@ -9,6 +9,7 @@ class Json_Int : public Json_Data{
 private:
 
     int value;
+    std::string key;
 
 public:
 

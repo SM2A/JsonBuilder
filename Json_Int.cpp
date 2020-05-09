@@ -3,9 +3,10 @@
 
 using namespace std;
 
-Json_Int::Json_Int(string key,int value) : Json_Data::Json_Data(key) {
+Json_Int::Json_Int(string key,int value){
 
     this->value = value;
+    this->key = key;
 }
 
 void Json_Int::print() {
