@@ -3,9 +3,10 @@
 
 #include <string>
 
-class JsonBuilder
-{
+class JsonBuilder{
+
 public:
+
     void addStringToObject(int parentId, std::string key, std::string value);
     void addIntegerToObject(int parentId, std::string key, int value);
     int addContainerToObject(int parentId, std::string key, std::string type);

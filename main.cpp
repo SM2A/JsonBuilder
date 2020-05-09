@@ -1,7 +1,11 @@
 #include "JsonBuilder.hpp"
+#include <vector>
+#include <iostream>
 
-int main()
-{
+using namespace std;
+
+int main(){
+
     JsonBuilder jsonBuilder;
 
     jsonBuilder.addStringToObject(0, "color", "red");
@@ -16,6 +20,8 @@ int main()
     jsonBuilder.addStringToObject(infoId, "name", "hosna");
     jsonBuilder.addStringToObject(infoId, "email", "hsazarmsa@gmail.com");
     jsonBuilder.print(0);
+
+
 }
 
 /*
