@@ -8,7 +8,11 @@ class Json_Data {
 public:
 
     Json_Data();
-    virtual void print() = 0;
+    virtual void print(int depth_=0)=0;
+
+protected:
+
+    void depth(int depth_);
 
 };
 

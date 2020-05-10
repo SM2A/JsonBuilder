@@ -14,7 +14,7 @@ private:
 public:
 
     Json_Int(std::string key,int value);
-    void print();
+    void print(int depth_=0);
 
 };
 

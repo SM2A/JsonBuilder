@@ -11,7 +11,7 @@ class Json_Container :public Json_Data{
 public:
 
     Json_Container(int id);
-    virtual void print()=0;
+    void print(int depth_=0);
     void add_element(Json_Data* json_data);
 
 private:
@@ -21,6 +21,9 @@ private:
 protected:
 
     data content;
+    std::string key;
+    char start;
+    char stop;
 
 };
 

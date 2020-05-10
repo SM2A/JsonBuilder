@@ -9,8 +9,9 @@ Json_Int::Json_Int(string key,int value){
     this->key = key;
 }
 
-void Json_Int::print() {
+void Json_Int::print(int depth_) {
 
+    depth(depth_);
     string output = '"' + key + '"' + ": " + to_string(value);
     cout<<output;
 }

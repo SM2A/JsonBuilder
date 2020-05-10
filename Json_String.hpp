@@ -9,7 +9,7 @@ class Json_String : public Json_Data{
 public:
 
     Json_String(std::string key , std::string value);
-    void print();
+    void print(int depth_=0);
 
 private:
 

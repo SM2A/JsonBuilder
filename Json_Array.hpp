@@ -8,11 +8,7 @@ class Json_Array : public Json_Container{
 public:
 
     Json_Array(std::string key,int id);
-    void print();
-
-private:
-
-    std::string key;
+    Json_Array(int id);
 
 };
 

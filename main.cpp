@@ -1,10 +1,8 @@
 #include "JsonBuilder.hpp"
-#include <vector>
-#include <iostream>
 
 using namespace std;
 
-int main(){
+int main() {
 
     JsonBuilder jsonBuilder;
 
@@ -22,23 +20,3 @@ int main(){
     jsonBuilder.print(0);
 
 }
-
-/*
-    result:
-    {
-        "color": "red",
-        "diameter": 25,
-        "courses": [
-            "AP",
-            "DM",
-            5
-        ],
-        "grades": [
-            20
-        ],
-        "info": {
-            "name": "hosna",
-            "email": "hsazarmsa@gmail.com"
-        }
-    }
-*/

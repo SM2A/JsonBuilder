@@ -2,8 +2,13 @@
 
 using namespace std;
 
-Json_Array::Json_Array(string key, int id) : Json_Container::Json_Container(id) {this->key=key;}
+Json_Array::Json_Array(string key, int id) : Json_Container::Json_Container(id) {
+    Json_Container::key=key;
+    this->start='[';
+    this->stop=']';
+}
 
-void Json_Array::print() {
-
+Json_Array::Json_Array(int id) : Json_Container(id) {
+    this->start='[';
+    this->stop=']';
 }
