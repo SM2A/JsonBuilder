@@ -19,4 +19,13 @@ int main() {
     jsonBuilder.addStringToObject(infoId, "email", "hsazarmsa@gmail.com");
     jsonBuilder.print(0);
 
+    JsonBuilder jsonBuilder1;
+    jsonBuilder1.addStringToObject(0,"name","amin");
+    int x = jsonBuilder1.addContainerToObject(0,"courses","object");
+    int y = jsonBuilder1.addContainerToObject(x,"ap","object");
+    int z = jsonBuilder1.addContainerToObject(y,"grades","array");
+    jsonBuilder1.addIntegerToArray(z,12);
+    jsonBuilder1.addIntegerToArray(z,23);
+    jsonBuilder1.addIntegerToArray(z,85);
+    jsonBuilder1.print(0);
 }
