@@ -21,130 +21,109 @@ using namespace std;
 JsonBuilder::JsonBuilder() {
 
     master = new Json_Object(MASTER_KEY, MASTER);
-    containers.insert(id_container(MASTER, master));
+    object_containers.insert(id_container(MASTER, master));
+    keys.push_back(id_key(MASTER,MASTER_KEY));
 }
 
 void JsonBuilder::addStringToObject(int parentId, string key, string value) {
 
-    try {
-        Json_Container *container = find_parent(parentId);
-        Json_String *j_string = new Json_String(key, value);
-        if(container== nullptr) throw Invalid_ID_Exception();
-        container->add_element(j_string);
-    }catch (Invalid_ID_Exception& exception){
-        cerr<<exception.what()<<endl;
-        abort();
-    }
+    Json_Container *container = find_parent_object(parentId);
+    available_key(parentId, key);
+    Json_String *j_string = new Json_String(key, value);
+    container->add_element(j_string);
 }
 
 void JsonBuilder::addIntegerToObject(int parentId, string key, int value) {
 
-    try {
-        Json_Container *container = find_parent(parentId);
-        Json_Int *j_int = new Json_Int(key, value);
-        if(container== nullptr) throw Invalid_ID_Exception();
-        container->add_element(j_int);
-    }catch (Invalid_ID_Exception& exception){
-        cerr<<exception.what()<<endl;
-        abort();
-    }
+    Json_Container *container = find_parent_object(parentId);
+    available_key(parentId, key);
+    Json_Int *j_int = new Json_Int(key, value);
+    container->add_element(j_int);
 }
 
 int JsonBuilder::addContainerToObject(int parentId, string key, string type) {
 
-    try {
-        Json_Container *container = find_parent(parentId);
-        if (container == nullptr) throw Invalid_ID_Exception();
-        Json_Container *j_container;
-        int new_id = generate_id();
+    Json_Container *container = find_parent_object(parentId);
+    available_key(parentId, key);
+    Json_Container *j_container;
+    int new_id = generate_id();
 
-        if (type == OBJECT) j_container = new Json_Object(key, new_id);
-        else if (type == ARRAY) j_container = new Json_Array(key, new_id);
-        else throw Undefined_Type_Exception();
+    if (type == OBJECT) {
+        j_container = new Json_Object(key, new_id);
+        object_containers.insert(id_container(new_id, j_container));
+    } else if (type == ARRAY) {
+        j_container = new Json_Array(key, new_id);
+        array_containers.insert(id_container(new_id, j_container));
+    } else throw Undefined_Type_Exception();
 
-        container->add_element(j_container);
-        containers.insert(id_container(new_id, j_container));
-        return new_id;
-    }catch (Invalid_ID_Exception& exception){
-        cerr<<exception.what()<<endl;
-        abort();
-    }catch (Undefined_Type_Exception& exception){
-        cerr<<exception.what()<<endl;
-        abort();
-    }
+    container->add_element(j_container);
+    return new_id;
 }
 
 void JsonBuilder::addStringToArray(int parentId, string value) {
 
-    try {
-        Json_Container *container = find_parent(parentId);
-        Array_String *a_string = new Array_String(value);
-        if (container == nullptr) throw Invalid_ID_Exception();
-        container->add_element(a_string);
-    }catch (Invalid_ID_Exception& exception){
-        cerr<<exception.what()<<endl;
-        abort();
-    }
+    Json_Container *container = find_parent_array(parentId);
+    Array_String *a_string = new Array_String(value);
+    container->add_element(a_string);
 }
 
 void JsonBuilder::addIntegerToArray(int parentId, int value) {
 
-    try {
-        Json_Container *container = find_parent(parentId);
-        Array_Int *a_int = new Array_Int(value);
-        if (container == nullptr) throw Invalid_ID_Exception();
-        container->add_element(a_int);
-    }catch (Invalid_ID_Exception& exception){
-        cerr<<exception.what()<<endl;
-        abort();
-    }
+    Json_Container *container = find_parent_array(parentId);
+    Array_Int *a_int = new Array_Int(value);
+    container->add_element(a_int);
 }
 
 int JsonBuilder::addContainerToArray(int parentId, string type) {
 
-    try {
-        Json_Container *container = find_parent(parentId);
-        if (container == nullptr) throw Invalid_ID_Exception();
-        Json_Container *a_container;
-        int new_id = generate_id();
+    Json_Container *container = find_parent_array(parentId);
+    Json_Container *a_container;
+    int new_id = generate_id();
 
-        if (type == OBJECT) a_container = new Json_Object(new_id);
-        else if (type == ARRAY) a_container = new Json_Array(new_id);
-        else throw Undefined_Type_Exception();
+    if (type == OBJECT) {
+        a_container = new Json_Object(new_id);
+        object_containers.insert(id_container(new_id, a_container));
+    } else if (type == ARRAY) {
+        a_container = new Json_Array(new_id);
+        array_containers.insert(id_container(new_id, a_container));
+    } else throw Undefined_Type_Exception();
 
-        container->add_element(a_container);
-        containers.insert(id_container(new_id, a_container));
-        return new_id;
-    }catch (Invalid_ID_Exception& exception){
-        cerr<<exception.what()<<endl;
-        abort();
-    }catch (Undefined_Type_Exception& exception){
-        cerr<<exception.what()<<endl;
-        abort();
-    }
+    container->add_element(a_container);
+    return new_id;
 }
 
 void JsonBuilder::print(int id) {
 
-    try {
-        Json_Container *container = find_parent(id);
-        if(container== nullptr) throw Invalid_ID_Exception();
-        container->print(MASTER_OBJECT);
-        cout << endl;
-    }catch (Invalid_ID_Exception& exception){
-        cerr<<exception.what()<<endl;
-        abort();
-    }
+    Json_Container *container = find_parent_object(id);
+    container->print(MASTER_OBJECT);
+    cout << endl;
 }
 
-Json_Container *JsonBuilder::find_parent(int id) {
+Json_Container *JsonBuilder::find_parent_object(int id) {
 
-    for (id_container i : containers)
+    for (id_container i : object_containers)
         if (i.first == id) return i.second;
 
-    return nullptr;
+    throw Invalid_ID_Exception();
+}
+
+Json_Container *JsonBuilder::find_parent_array(int id) {
+
+    for (id_container i : array_containers)
+        if (i.first == id) return i.second;
+
+    throw Invalid_ID_Exception();
 }
 
 int JsonBuilder::generate_id() {
-    return (containers.end()->first) + NEXT_ID;
+
+    return (max(object_containers.end()->first, array_containers.end()->first)) + NEXT_ID;
+}
+
+void JsonBuilder::available_key(int id, string key) {
+
+    for (id_key index : keys)
+        if ((index.first == id) && (index.second == key)) throw Duplicate_Key_Exception();
+
+    keys.push_back(id_key(id,key));
 }

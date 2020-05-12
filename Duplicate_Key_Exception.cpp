@@ -2,5 +2,5 @@
 
 const char* Duplicate_Key_Exception::what() const throw(){
 
-    return "Duplicate key.";
+    return "Duplicate key.\n";
 }

@@ -1,6 +1,5 @@
 #include <iostream>
 #include "Json_Container.hpp"
-#include "Invalid_ID_Exception.hpp"
 
 #define MASTER_OBJECT -1
 #define EMPTY 0
@@ -23,7 +22,7 @@ void Json_Container::print(int depth_) {
     if ((depth_ != MASTER_OBJECT) && (this->key.size() != EMPTY)) {
         string key_ = '"' + this->key + '"' + ": ";
         cout << key_;
-    } else depth_ = 0;
+    } else if(depth_ == MASTER_OBJECT) depth_ = 0;
     cout << start;
     if (content.size() != EMPTY) {
         cout << endl;

@@ -8,6 +8,8 @@
 
 typedef std::map<int,Json_Container*> container_data;
 typedef std::pair<int,Json_Container*> id_container;
+typedef std::vector<std::pair<int,std::string>> key_data;
+typedef std::pair<int,std::string> id_key;
 
 class JsonBuilder{
 
@@ -25,8 +27,12 @@ public:
 private:
 
     Json_Object* master;
-    container_data containers;
-    Json_Container* find_parent(int id);
+    container_data object_containers;
+    container_data array_containers;
+    key_data keys;
+    Json_Container* find_parent_object(int id);
+    Json_Container* find_parent_array(int id);
+    void available_key(int id , std::string key);
     int generate_id();
 
 };

@@ -2,5 +2,5 @@
 
 const char* Undefined_Type_Exception::what() const throw(){
 
-    return "Undefined type.";
+    return "Undefined type.\n";
 }
