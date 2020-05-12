@@ -117,7 +117,7 @@ Json_Container *JsonBuilder::find_parent_array(int id) {
 
 int JsonBuilder::generate_id() {
 
-    return (object_containers.size(), array_containers.size()) + NEXT_ID;
+    return (object_containers.size() + array_containers.size()) + NEXT_ID;
 }
 
 void JsonBuilder::available_key(int id, string key) {
