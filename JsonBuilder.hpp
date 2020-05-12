@@ -8,8 +8,8 @@
 
 typedef std::map<int,Json_Container*> container_data;
 typedef std::pair<int,Json_Container*> id_container;
-typedef std::vector<std::pair<int,std::string>> key_data;
 typedef std::pair<int,std::string> id_key;
+typedef std::vector<id_key> key_data;
 
 class JsonBuilder{
 
