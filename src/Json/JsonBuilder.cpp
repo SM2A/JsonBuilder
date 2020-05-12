@@ -1,12 +1,12 @@
-#include "JsonBuilder.hpp"
+#include "../../JsonBuilder.hpp"
 #include "Json_String.hpp"
 #include "Json_Array.hpp"
 #include "Json_Int.hpp"
 #include "Array_Int.hpp"
 #include "Array_String.hpp"
-#include "Duplicate_Key_Exception.hpp"
-#include "Invalid_ID_Exception.hpp"
-#include "Undefined_Type_Exception.hpp"
+#include "../Exception/Duplicate_Key_Exception.hpp"
+#include "../Exception/Invalid_ID_Exception.hpp"
+#include "../Exception/Undefined_Type_Exception.hpp"
 #include <iostream>
 
 #define MASTER 0
